@@ -1,0 +1,15 @@
+# .NET build outputs
+src/bin/
+src/obj/
+[Tt]est[Rr]esult*/
+
+# Prebuilt wrapper binary (distributed via GitHub Releases, not tracked in git)
+bin/
+
+# Local verification / temp dirs
+pwsh-utf8-src/
+cfg_*/
+json_test/
+opencode_utf8_*.py
+v2_py_hello.py
+final_*.py
