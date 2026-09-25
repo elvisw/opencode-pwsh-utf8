@@ -72,9 +72,9 @@ opencode-pwsh-utf8/
 # 1. 解压 Release 压缩包（假设解压到 D:\opencode-pwsh-utf8）
 # 2. 执行部署脚本（右键"使用 PowerShell 运行"亦可）
 cd D:\opencode-pwsh-utf8
-powershell -ExecutionPolicy Bypass -File .\deploy.ps1
-# 若机器上只有 PowerShell 7（无 powershell.exe），改用：
-# pwsh -ExecutionPolicy Bypass -File .\deploy.ps1
+pwsh -ExecutionPolicy Bypass -File .\deploy.ps1
+# 若机器上只有 Windows PowerShell 5.1（无 pwsh），改用：
+# powershell -ExecutionPolicy Bypass -File .\deploy.ps1
 
 # 3. 重启 OpenCode（关闭并重新打开 TUI/桌面应用；后台服务会自动跟随配置）
 ```
