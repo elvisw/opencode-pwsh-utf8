@@ -36,18 +36,24 @@ if (Test-Path $cfgPath) {
     Write-Step "未找到配置文件，跳过"
 }
 
-# ---------- 2. 删除 wrapper exe ----------
+# ---------- 2. 删除 wrapper exe（含版本化副本，如 pwsh-utf8-v2.exe） ----------
 Write-Step "删除 pwsh-utf8.exe"
 $destExe = Join-Path $ConfigDir 'pwsh-utf8.exe'
-if (Test-Path $destExe) {
+$exeFiles = @( $destExe ) + @( Get-ChildItem -Path $ConfigDir -Filter 'pwsh-utf8*.exe' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName )
+$exeFiles = $exeFiles | Select-Object -Unique
+$deletedAny = $false
+foreach ($f in $exeFiles) {
+    if (-not (Test-Path $f)) { continue }
     try {
-        Remove-Item $destExe -Force -ErrorAction Stop
-        Write-Host "  已删除 -> $destExe"
+        Remove-Item $f -Force -ErrorAction Stop
+        Write-Host "  已删除 -> $f"
+        $deletedAny = $true
     } catch {
         Write-Warning "删除失败（可能正被占用）：$($_.Exception.Message)"
-        Write-Host "  请完全关闭 OpenCode 后手动删除: $destExe"
+        Write-Host "  请完全关闭 OpenCode 后手动删除: $f"
     }
-} else {
+}
+if (-not $deletedAny -and -not (Test-Path $destExe)) {
     Write-Host "  文件不存在，跳过"
 }
 

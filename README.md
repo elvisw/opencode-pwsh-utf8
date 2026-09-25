@@ -176,6 +176,9 @@ python -c "print('Python中文测试：你好，世界！😀✅')"
 **Q：这个 wrapper 有性能开销吗？**
 NativeAOT 单文件 exe，启动 <10ms，每条命令只增加一次进程切换，可忽略。
 
+**Q：更新 exe 时提示“文件被占用”？**
+Windows 无法覆盖正在运行的 exe（TUI 终端标签页会一直持有 wrapper）。做法：把新版复制为 `pwsh-utf8-v2.exe` 放到配置目录，把配置中 `shell` 字段指向新文件名，重启 OpenCode 后再删除旧文件。`uninstall.ps1` 会一并清理 `pwsh-utf8*.exe`。
+
 **Q：支持非 Windows 机器吗？**
 不支持也不需要——本方案只针对 Windows 的 GBK 代码页问题。macOS/Linux 的 shell 默认 UTF-8。
 
